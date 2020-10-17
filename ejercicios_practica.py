@@ -16,6 +16,19 @@ __email__ = "emmaotm@gmail.com"
 __version__ = "1.1"
 
 
+import json
+import requests
+from matplotlib import pyplot as plt
+import xml.etree.ElementTree as ET
+
+
+def obt_titulos_completados (data, nro_user):
+    titles_completed = [id.get('completed') for id in data if id.get('userId') == nro_user 
+                        and id.get('completed') is True]
+
+    return titles_completed
+
+
 def ej1():
     # JSON Serialize
     # Armar un JSON que represente los datos personales
@@ -36,7 +49,38 @@ def ej1():
     # un archivo que usted defina
 
     # Observe el archivo y verifique que se almaceno lo deseado
-    pass
+    
+    json_data = {
+                    'Nombre': 'Emmanuel Oscar',
+                    'Apellido': 'Torres Molina',
+                    'DNI': 38404200,
+                    'Vestimenta': [
+                                    {
+                                        'prenda': 'zapatillas',
+                                        'cantidad': 6
+                                    },
+                                    {
+                                        'prenda': 'remeras',
+                                        'cantidad': 15
+                                    },
+                                    {
+                                        'prenda': 'pantalones',
+                                        'cantidad': 18
+                                    },
+                                    {
+                                        'prenda': 'camisas',
+                                        'cantidad': 10
+                                    }
+                    ]
+
+    }
+
+    print('\nImprimo el objeto JSON como un diccionario:\n\n{}\n\n'.format(json_data))
+    json_data_string = json.dumps(json_data, indent=4)
+    print('Imprimo el Objeto JSON:\n\n{}\n\n'.format(json_data_string))
+
+    with open('data.json', 'w') as jsonfile:
+        json.dump(json_data, jsonfile, indent=4)
 
 
 def ej2():
@@ -49,7 +93,13 @@ def ej2():
     # el método "dumps" y finalmente imprimir en pantalla el resultado
     # Recuerde utilizar indent=4 para poder observar mejor el resultado
     # en pantalla y comparelo contra el JSON que generó en el ej1
-    pass
+    
+    with open('data.json', 'r') as jsonfile:
+        json_data = json.load(jsonfile)
+
+    print('\nImprimo el objeto JSON como un diccionario ==> JSON Deserialize:\n\n{}\n\n'.format(json_data))
+    json_data_string = json.dumps(json_data, indent=4)
+    print('Imprimo el Objeto JSON Serialize:\n\n{}\n\n'.format(json_data_string))
 
 
 def ej3():
@@ -60,6 +110,8 @@ def ej3():
     # El objectivo es que armen un archivo XML al menos
     # una vez para que entiendan como funciona.
     pass
+
+    # Archivo: datos_personales.xml
 
 
 def ej4():
@@ -72,8 +124,19 @@ def ej4():
     # Python lanza algún error, es porque hay problemas en el archivo.
     # Preseten atención al número de fila y al mensaje de error
     # para entender que puede estar mal en el archivo.
-    pass
+    
+    print('\n\n')
+    
+    tree = ET.parse('datos_personales.xml')
+    root = tree.getroot() # Obtengo la Etiqueta de Mayor Jerarquía.
 
+    # Recorro el root:
+    for child in root:
+        print('Tag:', child.tag, 'Attrib:', child.attrib, 'Text:', child.text)
+        for child2 in child:
+            print('Tag:', child2.tag, 'Attrib:', child2.attrib, 'Text:', child2.text)
+
+    print('\n\n')
 
 def ej5():
     # Ejercicio de consumo de datos por API
@@ -102,12 +165,33 @@ def ej5():
     # y verifique si los primeros usuarios (mirando la página a ojo)
     # los datos recolectados son correctos.
 
+    response = requests.get(url)
+    if response.status_code == 200:
+        # Una forma de hacerlo:
+        #data = json.loads(response.text)
+
+        # Otra Forma:
+        data = response.json()
+        json_data = json.dumps(data, indent=4)
+        print('Objeto JSON Obtenido de la URL: "{}"\n\n{}\n\n'.format(url, json_data))
+        
+        users = ['User '+str(nro_user) for nro_user in range(1, 11)]
+        user_id_titles = [obt_titulos_completados(data, user) for user in range(1, 11)]
+        cant_titulos_completados = [int(sum(user)) for user in user_id_titles]
+
+        # Plot:
+        fig1 = plt.figure('Figura 1')
+        fig1.suptitle('Títulos de Libros Leídos por Usuarios')
+        ax = fig1.add_subplot(1,1,1)
+        ax.pie(cant_titulos_completados, labels=users, shadow=True, autopct='%1.2f%%', startangle=90)
+        ax.axis('equal')
+        plt.show()
 
 
 if __name__ == '__main__':
-    print("Bienvenidos a otra clase de Inove con Python")
+    print("\n\nBienvenidos a otra clase de Inove con Python\n\n")
     ej1()
-    # ej2()
-    # ej3()
-    # ej4()
-    # ej5()
+    ej2()
+    ej3()
+    ej4()
+    ej5()
