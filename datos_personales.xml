@@ -1,0 +1,17 @@
+<data>
+    <nombre>Emmanuel Oscar</nombre>
+    <apellido>Torres Molina</apellido>
+    <DNI>38404200</DNI>
+    <vestimenta prenda="zapatillas">
+        <cantidad>6</cantidad>
+    </vestimenta>
+    <vestimenta prenda="remeras">
+        <cantidad>15</cantidad>
+    </vestimenta>
+    <vestimenta prenda="pantalones">
+        <cantidad>18</cantidad>
+    </vestimenta>
+    <vestimenta prenda="camisas">
+        <cantidad>10</cantidad>
+    </vestimenta>
+</data>

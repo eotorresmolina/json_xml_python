@@ -1,0 +1,23 @@
+{
+    "Nombre": "Emmanuel Oscar",
+    "Apellido": "Torres Molina",
+    "DNI": 38404200,
+    "Vestimenta": [
+        {
+            "prenda": "zapatillas",
+            "cantidad": 6
+        },
+        {
+            "prenda": "remeras",
+            "cantidad": 15
+        },
+        {
+            "prenda": "pantalones",
+            "cantidad": 18
+        },
+        {
+            "prenda": "camisas",
+            "cantidad": 10
+        }
+    ]
+}

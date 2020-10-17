@@ -122,7 +122,7 @@ Si nuestro dataset solo tuviera esas 3 filas, debo sumar los dos débitos que re
 ]
 ```
 
-La lista que retorna "transform" como resultado es una lista de listas, en donde cada fila es la consolidación del débito de cada usuario. Difucultades para superar en este punto:
+La lista que retorna "transform" como resultado es una lista de listas, en donde cada fila es la consolidación del débito de cada usuario. Dificultades para superar en este punto:
 - Los números están en texto y comienza con "$" y tienen puntos y comas, antes de poder sumarlos deben convertirlos a float con la siguiente línea:
 ```
 amount = float(re.sub(r'[^\d\-.]', '', amount_str))  # amount_str es el valor en string con el $ tomado del dataset

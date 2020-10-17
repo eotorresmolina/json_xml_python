@@ -32,7 +32,7 @@ Cuando realicen encuestas a esta URL recibiran un JSON como el siguiente
 }
 ```
 
-Lo que nos interesa son los datos que se encuentran dentro de la lista de "__results__". Para poder acceder a esos datos deberan primero realizar el request de la misma forma que se realizó en clase, y luego con el JSON que obtenemos del request, encontraremos la lista de deparamentos y alquileres dentro de:
+Lo que nos interesa son los datos que se encuentran dentro de la lista de "__results__". Para poder acceder a esos datos deberan primero realizar el request de la misma forma que se realizó en clase, y luego con el JSON que obtenemos del request, encontraremos la lista de departamentos y alquileres dentro de:
 ```
 json_response["results"]
 ```
@@ -97,5 +97,5 @@ if __name__ == "__main__":
 ## Para jugar
 Cuando finalicen el ejercicio pueden realizar las siguientes modificaciones:
 - Que la función fetch reciba por parámetro la ciudad que se desea buscar en la URL.
-- Jugar con algunos datos extra que hay en el JSON como la cantidad de ambients, y realizar gráficos o comparaciones (sean creativos ^_^).
+- Jugar con algunos datos extra que hay en el JSON como la cantidad de ambientes, y realizar gráficos o comparaciones (sean creativos ^_^).
 
