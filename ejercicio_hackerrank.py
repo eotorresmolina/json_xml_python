@@ -58,6 +58,25 @@ def transform (dataset):
     return data
 
 
+def transform_2 (dataset):
+    data = {}
+    
+    for user in dataset:
+        user_id = user.get('userId')
+        amount = float(re.sub(r'[^\d\-.]', '', user.get('amount')))
+        accumulated_amount = data.get(user_id)
+        if accumulated_amount is not None:
+            amount += accumulated_amount
+        data[user_id] = amount
+
+        data1 = [key for key in data.keys()]
+        data2 = [value for value in data.values()]
+
+        data_user = [[id, amount] for id, amount in zip(data1, data2)]
+
+    return data_user
+
+
 def report(data, page_number, location_id):
     x = ['user_Id {}'.format(id[0]) for id in data]
     y = [amount[1] for amount in data]
@@ -75,8 +94,10 @@ def report(data, page_number, location_id):
 
 if __name__ == "__main__":
     page_number = 1
-    location_id = 7
+    location_id = 1
     dataset = fetch(page_number, location_id)
-    data = transform(dataset)
+    #data = transform(dataset)
+    data = transform_2(dataset)
+    print(data)
     report(data, page_number, location_id)
-    #print('\n\n{}\n\n{}\n\n'.format(dataset, data))
+    print('\n\n{}\n\n{}\n\n'.format(dataset, data))
