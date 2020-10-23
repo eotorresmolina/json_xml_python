@@ -72,7 +72,7 @@ def transform_2 (dataset):
         data1 = [key for key in data.keys()]
         data2 = [value for value in data.values()]
 
-        data_user = [[id, amount] for id, amount in zip(data1, data2)]
+    data_user = [[id, amount] for id, amount in zip(data1, data2)]
 
     return data_user
 
